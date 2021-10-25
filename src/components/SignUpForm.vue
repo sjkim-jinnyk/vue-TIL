@@ -30,14 +30,19 @@ export default {
 	},
 	methods: {
 		async SignUp() {
-			const UserData = {
-				username: this.id,
-				password: this.pwd,
-				nickname: this.name,
-			};
-			const response = await SignUpSubmit(UserData);
-			this.logMessage = `${response.data.username}님 가입되었습니다.`;
-			this.initForm();
+			try {
+				const UserData = {
+					username: this.id,
+					password: this.pwd,
+					nickname: this.name,
+				};
+				const response = await SignUpSubmit(UserData);
+				this.logMessage = `${response.data.username}님 가입되었습니다.`;
+			} catch (error) {
+				this.logMessage = error.response.data;
+			} finally {
+				this.initForm();
+			}
 		},
 		initForm() {
 			this.id = '';

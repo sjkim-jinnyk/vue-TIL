@@ -25,13 +25,18 @@ export default {
 	},
 	methods: {
 		async LoginSubmit() {
-			const UserData = {
-				username: this.userID,
-				password: this.userPWD,
-			};
-			const response = await LoginSubmit(UserData);
-			this.logMessage = `${response.data.user.username}님 로그인 되었습니다`;
-			this.init();
+			try {
+				const UserData = {
+					username: this.userID,
+					password: this.userPWD,
+				};
+				const response = await LoginSubmit(UserData);
+				this.logMessage = `${response.data.user.username}님 로그인 되었습니다`;
+			} catch (error) {
+				this.logMessage = error.response.data;
+			} finally {
+				this.init();
+			}
 		},
 		init() {
 			this.userID = '';
