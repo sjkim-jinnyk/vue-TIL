@@ -8,13 +8,15 @@
 			<label for="PWD">PWD : </label>
 			<input type="text" id="PWD" v-model="userPWD" />
 		</div>
-		<button type="submit">로그인</button>
+		<button :disabled="!isUserValid || !userPWD" type="submit">로그인</button>
 		<p>{{ logMessage }}</p>
 	</form>
 </template>
 
 <script>
 import { LoginSubmit } from '../api/apiIndex';
+import { validateEmail } from '../utils/validation';
+
 export default {
 	data() {
 		return {
@@ -22,6 +24,11 @@ export default {
 			userPWD: '',
 			logMessage: '',
 		};
+	},
+	computed: {
+		isUserValid() {
+			return validateEmail(this.userID);
+		},
 	},
 	methods: {
 		async LoginSubmit() {
