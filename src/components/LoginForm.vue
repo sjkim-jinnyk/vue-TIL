@@ -1,14 +1,42 @@
 <template>
 	<form @submit.prevent="LoginSubmit">
-		<div>
-			<label for="ID">ID : </label>
-			<input type="text" id="ID" v-model="userID" />
+		<div class="id-content">
+			<label for="ID">
+				ID
+				<input
+					type="text"
+					placeholder="아이디"
+					id="ID"
+					v-model="userID"
+					autocomplete="off"
+				/>
+			</label>
+			<p v-if="!isUserValid" class="warning">
+				Please enter a valid email address
+			</p>
 		</div>
-		<div>
-			<label for="PWD">PWD : </label>
-			<input type="text" id="PWD" v-model="userPWD" />
+
+		<div class="pwd-content">
+			<label for="PWD">
+				Password
+				<input
+					type="text"
+					placeholder="비밀번호"
+					id="PWD"
+					v-model="userPWD"
+					autocomplete="off"
+				/>
+			</label>
 		</div>
-		<button :disabled="!isUserValid || !userPWD" type="submit">로그인</button>
+		<!-- <div class="rememberId">
+			<label for="rememberId">
+				<input type="checkbox" name="id" id="rememberId" />
+				아이디 저장
+			</label>
+		</div> -->
+		<button :disabled="!isUserValid || !userPWD" type="submit" class="btn">
+			로그인
+		</button>
 		<p>{{ logMessage }}</p>
 	</form>
 </template>
@@ -27,6 +55,7 @@ export default {
 	},
 	computed: {
 		isUserValid() {
+			if (!this.userID) return true;
 			return validateEmail(this.userID);
 		},
 	},
@@ -53,4 +82,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.id-content,
+.pwd-content {
+	margin-bottom: 10px;
+}
+</style>

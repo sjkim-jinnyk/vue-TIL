@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<h1>회원가입 페이지</h1>
+	<div class="content">
+		<h1>Create a new account</h1>
 		<SignUpForm></SignUpForm>
 	</div>
 </template>

@@ -1,22 +1,55 @@
 <template>
 	<form @submit.prevent="SignUp">
-		<div>
-			<label for="id">id : </label>
-			<input type="text" id="id" v-model="id" />
-			<p v-if="!isIdValid">아이디는 이메일 형식으로 입력하세요.</p>
+		<div class="newId-content">
+			<label for="id">
+				ID
+				<input
+					type="text"
+					id="id"
+					v-model="id"
+					placeholder="이메일 형식의 아이디"
+					autocomplete="off"
+				/>
+			</label>
+			<p v-if="!isIdValid" class="warning">
+				아이디는 이메일 형식으로 입력하세요.
+			</p>
 		</div>
-		<div>
-			<label for="password">password : </label>
-			<input type="text" id="password" v-model="pwd" />
-			<p v-if="!isPWDValid">
+		<div class="newPwd-content">
+			<label for="password">
+				Password
+				<input
+					type="text"
+					id="password"
+					v-model="pwd"
+					placeholder="최소 8자, 최소 하나의 문자 및 숫자"
+					autocomplete="off"
+				/>
+			</label>
+			<p v-if="!isPWDValid" class="warning">
 				비밀번호는 최소 8자, 최소 하나의 문자 및 숫자로 작성하세요.
 			</p>
 		</div>
-		<div>
-			<label for="name">name : </label>
-			<input type="text" id="name" v-model="name" />
+		<div class="newName-content">
+			<label for="name">
+				Name
+				<input
+					type="text"
+					id="name"
+					v-model="name"
+					placeholder="이름"
+					autocomplete="off"
+				/>
+			</label>
 		</div>
-		<button :disabled="!isIdValid || !isPWDValid || !name" type="submit">
+		<p v-if="!isIdValid || !isPWDValid || !name" class="warning">
+			모든 필드를 다 채워주세요
+		</p>
+		<button
+			:disabled="!isIdValid || !isPWDValid || !name"
+			type="submit"
+			class="btn"
+		>
 			회원가입
 		</button>
 		<p>{{ logMessage }}</p>
@@ -38,9 +71,11 @@ export default {
 	},
 	computed: {
 		isIdValid() {
+			if (!this.id) return true;
 			return validateEmail(this.id);
 		},
 		isPWDValid() {
+			if (!this.pwd) return true;
 			return validatePWD(this.pwd);
 		},
 	},
@@ -69,4 +104,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.newId-content,
+.newPwd-content,
+.newName-content {
+	margin-bottom: 10px;
+}
+</style>
