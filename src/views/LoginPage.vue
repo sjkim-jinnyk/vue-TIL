@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<h1>로그인 페이지</h1>
+	<div class="content">
+		<h1>Welcome MEMO</h1>
 		<LoginForm></LoginForm>
 	</div>
 </template>
